@@ -9,6 +9,7 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from electricity_demand.features import (
+    build_feature_dataset,
     build_weekly_model_dataset,
 )
 from electricity_demand.preprocessing import (
@@ -24,6 +25,9 @@ def main() -> None:
     build_processed_datasets()
     build_weekly_temperature_dataset()
     model_file = build_weekly_model_dataset()
+    feature_file = build_feature_dataset()
+
+    print(f"Feature dataset: {feature_file}")
 
     print(f"\nFinal model dataset: {model_file}")
 

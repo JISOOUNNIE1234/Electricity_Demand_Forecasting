@@ -67,3 +67,23 @@ WEEKLY_MODEL_DATA_FILE = PROCESSED_DATA_DIR / "weekly_model_data.csv"
 SARIMAX_FORECAST_FILE = FORECASTS_DIR / "sarimax_forecast.csv"
 SARIMAX_METRICS_FILE = METRICS_DIR / "sarimax_metrics.csv"
 SARIMAX_MODEL_SUMMARY_FILE = METRICS_DIR / "sarimax_model_summary.csv"
+
+FEATURE_DATA_FILE = PROCESSED_DATA_DIR / "weekly_feature_data.csv"
+
+FEATURE_MODEL_FORECAST_FILE = (
+    FORECASTS_DIR / "feature_model_forecasts.csv"
+)
+
+FEATURE_MODEL_METRICS_FILE = (
+    METRICS_DIR / "feature_model_metrics.csv"
+)
+
+FEATURE_IMPORTANCE_FILE = (
+    METRICS_DIR / "feature_importance.csv"
+)
+
+FEATURE_MODEL_SEARCH_FILE = (
+    METRICS_DIR / "feature_model_search_results.csv"
+)
+
+RANDOM_STATE = 42
