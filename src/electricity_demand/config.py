@@ -32,3 +32,9 @@ GERMANY_LOAD_COLUMN_CANDIDATES = [
     "DE_load_actual_entsoe_transparency",
     "DE_load_actual_entsoe_power_statistics",
 ]
+
+TEST_HORIZON_WEEKS = 104
+WEEKLY_SEASONAL_PERIOD = 52
+
+BENCHMARK_FORECAST_FILE = FORECASTS_DIR / "benchmark_forecasts.csv"
+BENCHMARK_METRICS_FILE = METRICS_DIR / "benchmark_metrics.csv"
