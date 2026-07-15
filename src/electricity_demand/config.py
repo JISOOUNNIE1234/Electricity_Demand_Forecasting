@@ -51,3 +51,19 @@ SARIMA_Q_VALUES = range(0, 7)
 SARIMA_SEASONAL_P_VALUES = range(0, 2)
 SARIMA_SEASONAL_D_VALUES = range(0, 2)
 SARIMA_SEASONAL_Q_VALUES = range(0, 2)
+
+TEMPERATURE_API_URL = "https://archive-api.open-meteo.com/v1/archive"
+
+BERLIN_LATITUDE = 52.52
+BERLIN_LONGITUDE = 13.405
+
+TEMPERATURE_START_DATE = "2015-01-01"
+TEMPERATURE_END_DATE = "2020-10-06"
+
+TEMPERATURE_RAW_FILE = RAW_DATA_DIR / "berlin_temperature_hourly.csv"
+TEMPERATURE_WEEKLY_FILE = PROCESSED_DATA_DIR / "berlin_temperature_weekly.csv"
+WEEKLY_MODEL_DATA_FILE = PROCESSED_DATA_DIR / "weekly_model_data.csv"
+
+SARIMAX_FORECAST_FILE = FORECASTS_DIR / "sarimax_forecast.csv"
+SARIMAX_METRICS_FILE = METRICS_DIR / "sarimax_metrics.csv"
+SARIMAX_MODEL_SUMMARY_FILE = METRICS_DIR / "sarimax_model_summary.csv"

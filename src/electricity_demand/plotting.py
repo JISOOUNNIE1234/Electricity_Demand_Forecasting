@@ -282,3 +282,73 @@ def plot_sarima_residual_diagnostics(
     plt.close(figure)
 
     return output_path
+
+def plot_sarimax_forecast(
+    training_series: pd.Series,
+    forecast_data: pd.DataFrame,
+) -> Path:
+    """Plot SARIMAX conditional forecast."""
+    FIGURES_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    output_path = (
+        FIGURES_DIR / "sarimax_forecast.png"
+    )
+
+    figure, axis = plt.subplots(
+        figsize=(13, 6)
+    )
+
+    axis.plot(
+        training_series.iloc[-104:].index,
+        training_series.iloc[-104:],
+        label="Training data",
+    )
+
+    axis.plot(
+        forecast_data.index,
+        forecast_data["actual"],
+        label="Actual test data",
+        linewidth=2,
+    )
+
+    axis.plot(
+        forecast_data.index,
+        forecast_data["sarimax"],
+        label="SARIMAX conditional forecast",
+        linewidth=1.8,
+    )
+
+    axis.fill_between(
+        forecast_data.index,
+        forecast_data["lower_95"],
+        forecast_data["upper_95"],
+        alpha=0.2,
+        label="95% confidence interval",
+    )
+
+    axis.axvline(
+        forecast_data.index[0],
+        linestyle="--",
+        label="Forecast origin",
+    )
+
+    axis.set_title(
+        "SARIMAX Conditional Forecast with Berlin Temperature"
+    )
+    axis.set_xlabel("Date")
+    axis.set_ylabel("Electricity demand (GW)")
+    axis.legend()
+    axis.grid(alpha=0.3)
+
+    figure.tight_layout()
+    figure.savefig(
+        output_path,
+        dpi=300,
+        bbox_inches="tight",
+    )
+    plt.close(figure)
+
+    return output_path

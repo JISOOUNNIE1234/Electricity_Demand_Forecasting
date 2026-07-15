@@ -8,18 +8,24 @@ SRC_DIR = PROJECT_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from electricity_demand.preprocessing import build_processed_datasets
+from electricity_demand.features import (
+    build_weekly_model_dataset,
+)
+from electricity_demand.preprocessing import (
+    build_processed_datasets,
+)
+from electricity_demand.temperature import (
+    build_weekly_temperature_dataset,
+)
 
 
 def main() -> None:
-    """Create cleaned hourly, daily and weekly electricity datasets."""
-    generated_files = build_processed_datasets()
+    """Build all processed modelling datasets."""
+    build_processed_datasets()
+    build_weekly_temperature_dataset()
+    model_file = build_weekly_model_dataset()
 
-    print("\nGenerated files")
-    print("---------------")
-
-    for dataset_name, file_path in generated_files.items():
-        print(f"{dataset_name.title()}: {file_path}")
+    print(f"\nFinal model dataset: {model_file}")
 
 
 if __name__ == "__main__":
