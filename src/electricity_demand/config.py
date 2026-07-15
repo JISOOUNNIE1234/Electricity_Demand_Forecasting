@@ -38,3 +38,16 @@ WEEKLY_SEASONAL_PERIOD = 52
 
 BENCHMARK_FORECAST_FILE = FORECASTS_DIR / "benchmark_forecasts.csv"
 BENCHMARK_METRICS_FILE = METRICS_DIR / "benchmark_metrics.csv"
+
+SARIMA_SEARCH_RESULTS_FILE = METRICS_DIR / "sarima_aic_search_results.csv"
+SARIMA_BEST_MODEL_FILE = METRICS_DIR / "sarima_best_model.csv"
+SARIMA_FORECAST_FILE = FORECASTS_DIR / "sarima_forecast.csv"
+SARIMA_METRICS_FILE = METRICS_DIR / "sarima_metrics.csv"
+
+SARIMA_P_VALUES = range(0, 7)
+SARIMA_D_VALUES = range(0, 3)
+SARIMA_Q_VALUES = range(0, 7)
+
+SARIMA_SEASONAL_P_VALUES = range(0, 2)
+SARIMA_SEASONAL_D_VALUES = range(0, 2)
+SARIMA_SEASONAL_Q_VALUES = range(0, 2)

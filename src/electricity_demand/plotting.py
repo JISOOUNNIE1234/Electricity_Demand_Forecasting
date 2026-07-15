@@ -5,6 +5,10 @@ import pandas as pd
 
 from electricity_demand.config import FIGURES_DIR
 
+import numpy as np
+from scipy import stats
+from statsmodels.graphics.tsaplots import plot_acf
+
 
 def plot_benchmark_forecasts(
     training_series: pd.Series,
@@ -104,6 +108,170 @@ def plot_benchmark_errors(
     axis.set_xlabel("RMSE (GW)")
     axis.set_ylabel("Model")
     axis.grid(axis="x", alpha=0.3)
+
+    figure.tight_layout()
+    figure.savefig(
+        output_path,
+        dpi=300,
+        bbox_inches="tight",
+    )
+    plt.close(figure)
+
+    return output_path
+
+def plot_sarima_forecast(
+    training_series: pd.Series,
+    forecast_data: pd.DataFrame,
+) -> Path:
+    """
+    Plot the SARIMA forecast against the actual test data.
+    """
+    FIGURES_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    output_path = (
+        FIGURES_DIR / "sarima_forecast.png"
+    )
+
+    figure, axis = plt.subplots(
+        figsize=(13, 6)
+    )
+
+    training_tail = training_series.iloc[-104:]
+
+    axis.plot(
+        training_tail.index,
+        training_tail,
+        label="Training data",
+        linewidth=1.5,
+    )
+
+    axis.plot(
+        forecast_data.index,
+        forecast_data["actual"],
+        label="Actual test data",
+        linewidth=2,
+    )
+
+    axis.plot(
+        forecast_data.index,
+        forecast_data["sarima"],
+        label="SARIMA forecast",
+        linewidth=1.8,
+    )
+
+    axis.fill_between(
+        forecast_data.index,
+        forecast_data["lower_95"],
+        forecast_data["upper_95"],
+        alpha=0.2,
+        label="95% confidence interval",
+    )
+
+    axis.axvline(
+        forecast_data.index[0],
+        linestyle="--",
+        linewidth=1,
+        label="Forecast origin",
+    )
+
+    axis.set_title(
+        "SARIMA Forecast for Weekly German Electricity Demand"
+    )
+    axis.set_xlabel("Date")
+    axis.set_ylabel("Electricity demand (GW)")
+    axis.legend()
+    axis.grid(alpha=0.3)
+
+    figure.tight_layout()
+    figure.savefig(
+        output_path,
+        dpi=300,
+        bbox_inches="tight",
+    )
+    plt.close(figure)
+
+    return output_path
+
+
+def plot_sarima_residual_diagnostics(
+    residuals: pd.Series,
+) -> Path:
+    """
+    Plot SARIMA residual time series, histogram, Q-Q plot and ACF.
+    """
+    FIGURES_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    output_path = (
+        FIGURES_DIR
+        / "sarima_residual_diagnostics.png"
+    )
+
+    clean_residuals = pd.Series(
+        residuals
+    ).dropna()
+
+    clean_residuals = clean_residuals.loc[
+        np.isfinite(clean_residuals)
+    ]
+
+    figure, axes = plt.subplots(
+        nrows=2,
+        ncols=2,
+        figsize=(13, 9),
+    )
+
+    axes[0, 0].plot(
+        clean_residuals.index,
+        clean_residuals,
+    )
+    axes[0, 0].axhline(
+        0,
+        linestyle="--",
+        linewidth=1,
+    )
+    axes[0, 0].set_title("Residuals over time")
+    axes[0, 0].set_xlabel("Observation")
+    axes[0, 0].set_ylabel("Residual")
+
+    axes[0, 1].hist(
+        clean_residuals,
+        bins=25,
+        edgecolor="black",
+    )
+    axes[0, 1].set_title(
+        "Residual distribution"
+    )
+    axes[0, 1].set_xlabel("Residual")
+    axes[0, 1].set_ylabel("Frequency")
+
+    stats.probplot(
+        clean_residuals,
+        dist="norm",
+        plot=axes[1, 0],
+    )
+    axes[1, 0].set_title(
+        "Normal Q-Q plot"
+    )
+
+    maximum_lags = min(
+        60,
+        len(clean_residuals) - 1,
+    )
+
+    plot_acf(
+        clean_residuals,
+        lags=maximum_lags,
+        ax=axes[1, 1],
+    )
+    axes[1, 1].set_title(
+        "Residual autocorrelation"
+    )
 
     figure.tight_layout()
     figure.savefig(

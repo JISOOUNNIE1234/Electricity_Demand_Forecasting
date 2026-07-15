@@ -1,0 +1,2 @@
+residual_mean,residual_standard_deviation,ljung_box_lag,ljung_box_statistic,ljung_box_p_value
+0.21575554544224973,4.799796612514636,20,30.23552591618551,0.06612612644461592
