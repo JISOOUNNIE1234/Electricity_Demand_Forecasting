@@ -20,3 +20,15 @@ ELECTRICITY_DATA_URL = (
 )
 
 ELECTRICITY_RAW_FILE = RAW_DATA_DIR / "time_series_60min_singleindex.csv"
+HOURLY_PROCESSED_FILE = PROCESSED_DATA_DIR / "germany_load_hourly.csv"
+DAILY_PROCESSED_FILE = PROCESSED_DATA_DIR / "germany_load_daily.csv"
+WEEKLY_PROCESSED_FILE = PROCESSED_DATA_DIR / "germany_load_weekly.csv"
+
+START_DATE = "2015-01-01"
+
+DATETIME_COLUMN = "utc_timestamp"
+
+GERMANY_LOAD_COLUMN_CANDIDATES = [
+    "DE_load_actual_entsoe_transparency",
+    "DE_load_actual_entsoe_power_statistics",
+]
