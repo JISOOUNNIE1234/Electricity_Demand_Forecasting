@@ -1,0 +1,42 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# VS Code
+.vscode/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Generated model files
+outputs/models/
+
+# Raw and generated data
+data/raw/*
+data/interim/*
+data/processed/*
+
+# Keep empty directories in Git
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Generated outputs
+outputs/figures/*
+outputs/forecasts/*
+outputs/metrics/*
+
+!outputs/figures/.gitkeep
+!outputs/forecasts/.gitkeep
+!outputs/metrics/.gitkeep
+
+# Environment and system files
+.env
+.DS_Store
+Thumbs.db
