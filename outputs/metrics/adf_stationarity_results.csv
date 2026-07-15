@@ -1,0 +1,5 @@
+series,adf_statistic,p_value,used_lags,observations,interpretation
+Original weekly series,-4.04747185567848,0.0011813497340154625,8,292,Stationary: reject the null hypothesis of a unit root.
+First-differenced weekly series,-7.0693181700179855,4.984737279649243e-10,7,292,Stationary: reject the null hypothesis of a unit root.
+Seasonally differenced weekly series,-4.295072288761109,0.0004530219105253833,2,246,Stationary: reject the null hypothesis of a unit root.
+First and seasonally differenced weekly series,-7.277550672671217,1.530327304387622e-10,10,237,Stationary: reject the null hypothesis of a unit root.

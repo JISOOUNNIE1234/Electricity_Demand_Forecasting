@@ -27,14 +27,6 @@ data/processed/*
 !data/interim/.gitkeep
 !data/processed/.gitkeep
 
-# Generated outputs
-outputs/figures/*
-outputs/forecasts/*
-outputs/metrics/*
-
-!outputs/figures/.gitkeep
-!outputs/forecasts/.gitkeep
-!outputs/metrics/.gitkeep
 
 # Environment and system files
 .env
