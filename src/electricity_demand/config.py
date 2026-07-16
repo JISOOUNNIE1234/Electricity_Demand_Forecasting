@@ -87,3 +87,27 @@ FEATURE_MODEL_SEARCH_FILE = (
 )
 
 RANDOM_STATE = 42
+
+HOURLY_TEST_HOURS = 24 * 365 * 2
+
+LSTM_SEQUENCE_LENGTH = 24 * 7
+
+LSTM_FORECAST_FILE = (
+    FORECASTS_DIR / "lstm_hourly_forecast.csv"
+)
+
+LSTM_METRICS_FILE = (
+    METRICS_DIR / "lstm_metrics.csv"
+)
+
+LSTM_SEARCH_RESULTS_FILE = (
+    METRICS_DIR / "lstm_search_results.csv"
+)
+
+LSTM_TRAINING_HISTORY_FILE = (
+    METRICS_DIR / "lstm_training_history.csv"
+)
+
+LSTM_MODEL_FILE = (
+    MODELS_DIR / "hourly_lstm.keras"
+)

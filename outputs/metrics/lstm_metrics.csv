@@ -1,0 +1,2 @@
+model,MAE,RMSE,Bias,evaluation_frequency,forecast_design
+lstm,1.0332860492323086,1.285722349253118,0.5119767429316968,hourly,rolling one-step-ahead

@@ -32,3 +32,6 @@ data/processed/*
 .env
 .DS_Store
 Thumbs.db
+
+.venv-lstm/
+outputs/models/

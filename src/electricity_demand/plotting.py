@@ -475,3 +475,183 @@ def plot_feature_importance(
     plt.close(figure)
 
     return output_path
+
+def plot_lstm_training_history(
+    training_history: pd.DataFrame,
+) -> Path:
+    """
+    Plot training and validation loss for the selected LSTM.
+    """
+    FIGURES_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    output_path = (
+        FIGURES_DIR / "lstm_training_history.png"
+    )
+
+    figure, axis = plt.subplots(
+        figsize=(9, 5)
+    )
+
+    axis.plot(
+        training_history.index + 1,
+        training_history["loss"],
+        label="Training loss",
+    )
+
+    axis.plot(
+        training_history.index + 1,
+        training_history["val_loss"],
+        label="Validation loss",
+    )
+
+    axis.set_title(
+        "Selected LSTM Training History"
+    )
+    axis.set_xlabel("Epoch")
+    axis.set_ylabel("Mean squared error")
+    axis.legend()
+    axis.grid(alpha=0.3)
+
+    figure.tight_layout()
+    figure.savefig(
+        output_path,
+        dpi=300,
+        bbox_inches="tight",
+    )
+    plt.close(figure)
+
+    return output_path
+
+
+def plot_lstm_hourly_forecast(
+    training_series: pd.Series,
+    forecast_data: pd.DataFrame,
+) -> Path:
+    """
+    Plot a manageable recent section of the hourly LSTM forecast.
+    """
+    FIGURES_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    output_path = (
+        FIGURES_DIR / "lstm_hourly_forecast.png"
+    )
+
+    display_hours = 24 * 30
+
+    training_tail = training_series.iloc[
+        -display_hours:
+    ]
+
+    forecast_head = forecast_data.iloc[
+        :display_hours
+    ]
+
+    figure, axis = plt.subplots(
+        figsize=(14, 6)
+    )
+
+    axis.plot(
+        training_tail.index,
+        training_tail,
+        label="Training data",
+        linewidth=1,
+    )
+
+    axis.plot(
+        forecast_head.index,
+        forecast_head["actual"],
+        label="Actual test load",
+        linewidth=1.5,
+    )
+
+    axis.plot(
+        forecast_head.index,
+        forecast_head["lstm"],
+        label="LSTM forecast",
+        linewidth=1.3,
+    )
+
+    axis.axvline(
+        forecast_data.index[0],
+        linestyle="--",
+        label="Test-period start",
+    )
+
+    axis.set_title(
+        "Hourly LSTM Forecast: First 30 Test Days"
+    )
+    axis.set_xlabel("Date")
+    axis.set_ylabel("Electricity demand (GW)")
+    axis.legend()
+    axis.grid(alpha=0.3)
+
+    figure.tight_layout()
+    figure.savefig(
+        output_path,
+        dpi=300,
+        bbox_inches="tight",
+    )
+    plt.close(figure)
+
+    return output_path
+
+
+def plot_lstm_error_distribution(
+    forecast_data: pd.DataFrame,
+) -> Path:
+    """
+    Plot the LSTM hourly forecast error distribution.
+    """
+    FIGURES_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    output_path = (
+        FIGURES_DIR / "lstm_error_distribution.png"
+    )
+
+    errors = (
+        forecast_data["lstm"]
+        - forecast_data["actual"]
+    )
+
+    figure, axis = plt.subplots(
+        figsize=(9, 5)
+    )
+
+    axis.hist(
+        errors,
+        bins=50,
+        edgecolor="black",
+    )
+
+    axis.axvline(
+        errors.mean(),
+        linestyle="--",
+        label=f"Mean error: {errors.mean():.3f} GW",
+    )
+
+    axis.set_title(
+        "LSTM Hourly Forecast Error Distribution"
+    )
+    axis.set_xlabel("Forecast error (GW)")
+    axis.set_ylabel("Frequency")
+    axis.legend()
+    axis.grid(alpha=0.3)
+
+    figure.tight_layout()
+    figure.savefig(
+        output_path,
+        dpi=300,
+        bbox_inches="tight",
+    )
+    plt.close(figure)
+
+    return output_path
