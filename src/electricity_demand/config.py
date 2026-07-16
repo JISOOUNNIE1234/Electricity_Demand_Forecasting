@@ -111,3 +111,19 @@ LSTM_TRAINING_HISTORY_FILE = (
 LSTM_MODEL_FILE = (
     MODELS_DIR / "hourly_lstm.keras"
 )
+
+LSTM_WEEKLY_FORECAST_FILE = (
+    FORECASTS_DIR / "lstm_weekly_forecast.csv"
+)
+
+LSTM_WEEKLY_METRICS_FILE = (
+    METRICS_DIR / "lstm_weekly_metrics.csv"
+)
+
+MODEL_COMPARISON_FILE = (
+    METRICS_DIR / "model_comparison.csv"
+)
+
+ALL_FORECASTS_FILE = (
+    FORECASTS_DIR / "all_forecasts.csv"
+)
